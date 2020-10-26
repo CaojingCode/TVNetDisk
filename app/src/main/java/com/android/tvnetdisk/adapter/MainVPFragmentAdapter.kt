@@ -1,19 +1,21 @@
 package com.android.tvnetdisk.adapter
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import android.view.View
+import androidx.fragment.app.*
+import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MainVPFragmentAdapter(fragmentActivity: FragmentActivity) :
-    FragmentStateAdapter(fragmentActivity) {
+class MainVPFragmentAdapter(fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     var fragments: ArrayList<Fragment> = arrayListOf()
 
-
-    override fun getItemCount(): Int {
+    override fun getCount(): Int {
         return fragments.size
     }
 
-    override fun createFragment(position: Int): Fragment {
+
+    override fun getItem(position: Int): Fragment {
+
         return fragments[position]
     }
 }

@@ -11,7 +11,10 @@
         android:layout_height="match_parent"
         app:tv_layoutManager="V7GridLayoutManager"
         app:tv_horizontalSpacingWithMargins="10dp"
-        app:tv_verticalSpacingWithMargins="10dp"
-        app:spanCount="4"/>
+        app:tv_verticalSpacingWithMargins="30dp"
+        app:spanCount="4"
+        app:tv_isIntelligentScroll="true"
+        app:tv_numColumns="4"
+        android:padding="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

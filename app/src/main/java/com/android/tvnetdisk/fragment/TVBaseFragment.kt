@@ -9,6 +9,7 @@ import com.android.tvnetdisk.R
 import com.android.tvnetdisk.adapter.GridAdapter
 import com.android.tvnetdisk.help.getRandomColor
 import com.android.tvnetdisk.viewmodel.TVFragmentViewModel
+import com.blankj.utilcode.util.ToastUtils
 import com.jijia.kotlinlibrary.base.BaseFragment
 import com.owen.focus.FocusBorder
 import com.owen.tvrecyclerview.widget.SimpleOnItemListener
@@ -49,7 +50,7 @@ open class TVBaseFragment : BaseFragment() {
         view.rvGridView.setBackgroundColor(getRandomColor())
         view.rvGridView.setOnItemListener(object : SimpleOnItemListener() {
             override fun onItemSelected(parent: TvRecyclerView?, itemView: View, position: Int) {
-                onMoveFocusBorder(itemView, 1.1f)
+                onMoveFocusBorder(itemView, 1.2f,20f)
             }
 
             override fun onItemClick(parent: TvRecyclerView?, itemView: View?, position: Int) {
@@ -63,6 +64,7 @@ open class TVBaseFragment : BaseFragment() {
     override fun initData() {
         fragmentViewModel.filesLiveData.observe(this, Observer {
             gridAdapter.setDatas(it)
+            gridAdapter.notifyDataSetChanged()
         })
     }
 

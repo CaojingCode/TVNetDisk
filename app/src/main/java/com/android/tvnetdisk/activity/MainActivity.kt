@@ -1,5 +1,6 @@
 package com.android.tvnetdisk.activity
 
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,7 +20,7 @@ class MainActivity : TVBaseActivity() {
 
     private lateinit var mainViewModel: MainViewModel
     lateinit var vpFragmentAdapter: MainVPFragmentAdapter
-     lateinit var tabAdapter: TabBaseAdapter
+    lateinit var tabAdapter: TabBaseAdapter
 
 
     override fun layoutTVResID(): Int {
@@ -30,32 +31,37 @@ class MainActivity : TVBaseActivity() {
         super.initView()
         titleBarHide()
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        vpFragmentAdapter = MainVPFragmentAdapter(this)
+
+        vpFragment.offscreenPageLimit = 6
+        vpFragmentAdapter = MainVPFragmentAdapter(supportFragmentManager)
         vpFragment.adapter = vpFragmentAdapter
-        vpFragment.offscreenPageLimit=10
-        tabAdapter= TabBaseAdapter(this)
+        tabAdapter = TabBaseAdapter(this)
         tabLayout.adapter = tabAdapter
 
-        tabLayout.setOnItemListener(object: SimpleOnItemListener(){
+        tabLayout.setOnItemListener(object : SimpleOnItemListener() {
             override fun onItemSelected(parent: TvRecyclerView?, itemView: View, position: Int) {
-                onMoveFocusBorder(itemView,1.1f)
-                vpFragment.currentItem=position
-            }
-
-            override fun onItemClick(parent: TvRecyclerView?, itemView: View?, position: Int) {
-               ToastUtils.showLong("$position")
+                onMoveFocusBorder(itemView, 1.0f)
+                vpFragment.setCurrentItem(position,false)
             }
         })
         tabLayout.setOnFocusChangeListener { view, hasFocus ->
             mFocusBorder.isVisible = hasFocus
         }
+
     }
 
     override fun initData() {
         mainViewModel.navigationLiveData.observe(this, Observer {
+
             vpFragmentAdapter.fragments = it["fragments"] as ArrayList<Fragment>
+            vpFragmentAdapter.notifyDataSetChanged()
+            ToastUtils.showShort(vpFragmentAdapter.fragments.size.toString())
+
             tabAdapter.setDatas(it["tabEntity"] as MutableList<TabEntity>)
         })
     }
 
+    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+        return false
+    }
 }

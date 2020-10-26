@@ -18,13 +18,13 @@
         />
 
 
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/vpFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
-        android:visibility="visible"
+
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
