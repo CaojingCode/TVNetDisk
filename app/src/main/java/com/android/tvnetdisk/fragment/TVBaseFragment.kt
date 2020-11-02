@@ -45,26 +45,26 @@ open class TVBaseFragment : BaseFragment() {
             .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 10f)
             .build(this)
 
-        gridAdapter = GridAdapter(activity)
-        view.rvGridView.adapter = gridAdapter
-        view.rvGridView.setBackgroundColor(getRandomColor())
-        view.rvGridView.setOnItemListener(object : SimpleOnItemListener() {
-            override fun onItemSelected(parent: TvRecyclerView?, itemView: View, position: Int) {
-                onMoveFocusBorder(itemView, 1.2f,20f)
-            }
-
-            override fun onItemClick(parent: TvRecyclerView?, itemView: View?, position: Int) {
-            }
-        })
-        view.rvGridView.setOnFocusChangeListener { view, hasFocus ->
-            mFocusBorder.isVisible = hasFocus
-        }
+//        gridAdapter = GridAdapter(activity)
+//        view.rvGridView.adapter = gridAdapter
+//        view.rvGridView.setBackgroundColor(getRandomColor())
+//        view.rvGridView.setOnItemListener(object : SimpleOnItemListener() {
+//            override fun onItemSelected(parent: TvRecyclerView?, itemView: View, position: Int) {
+//                onMoveFocusBorder(itemView, 1.2f,20f)
+//            }
+//
+//            override fun onItemClick(parent: TvRecyclerView?, itemView: View?, position: Int) {
+//            }
+//        })
+//        view.rvGridView.setOnFocusChangeListener { view, hasFocus ->
+//            mFocusBorder.isVisible = hasFocus
+//        }
     }
 
     override fun initData() {
         fragmentViewModel.filesLiveData.observe(this, Observer {
-            gridAdapter.setDatas(it)
-            gridAdapter.notifyDataSetChanged()
+//            gridAdapter.setDatas(it)
+//            gridAdapter.notifyDataSetChanged()
         })
     }
 

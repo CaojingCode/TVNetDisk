@@ -52,4 +52,8 @@ class MainViewModel : BaseViewModel() {
         hashMap["tabEntity"] = getTabEntity()
         navigationLiveData.postValue(hashMap)
     }
+
+    override fun getSuccessCode(): Int {
+        return 200
+    }
 }

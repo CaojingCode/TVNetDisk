@@ -14,7 +14,6 @@
         app:tv_verticalSpacingWithMargins="30dp"
         app:spanCount="4"
         app:tv_isIntelligentScroll="true"
-        app:tv_numColumns="4"
         android:padding="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

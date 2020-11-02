@@ -40,4 +40,8 @@ class TVFragmentViewModel : BaseViewModel() {
         }
         filesLiveData.postValue(gridList)
     }
+
+    override fun getSuccessCode(): Int {
+        return 200
+    }
 }
