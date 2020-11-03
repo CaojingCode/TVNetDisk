@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.android.tvnetdisk.R
 import com.android.tvnetdisk.viewmodel.LoginViewModel
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_login.*
@@ -34,7 +35,10 @@ class LoginActivity : TVBaseActivity() {
         }
 
         loginViewModel.bindingLiveData.observe(this, Observer {
-
+            if (it.code==200){
+                //绑定成功，进入首页
+                ActivityUtils.startActivity(MainActivity::class.java)
+            }
         })
     }
 }

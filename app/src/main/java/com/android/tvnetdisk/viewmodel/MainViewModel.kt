@@ -1,10 +1,17 @@
 package com.android.tvnetdisk.viewmodel
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
+import com.android.tvnetdisk.entity.ColumnEntity
 import com.android.tvnetdisk.entity.TabEntity
 import com.android.tvnetdisk.fragment.TVBaseFragment
+import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.google.gson.reflect.TypeToken
 import com.jijia.kotlinlibrary.base.AppLiveData
 import com.jijia.kotlinlibrary.base.BaseViewModel
+import com.jijia.kotlinlibrary.entity.ApiResponse
+import kotlinx.coroutines.launch
 
 class MainViewModel : BaseViewModel() {
 
@@ -19,8 +26,7 @@ class MainViewModel : BaseViewModel() {
     val navigationLiveData = AppLiveData<HashMap<String, Any>>()
 
     init {
-        getFragments()
-        updateNavigation()
+        httpColumn()
     }
 
 
@@ -42,14 +48,30 @@ class MainViewModel : BaseViewModel() {
         return tabList
     }
 
+    private fun httpColumn(){
+        //要传的参数
+        var hashMap = HashMap<String, String>().apply {
+            put("appSecret", SPUtils.getInstance().getString("appKey"))
+        }
+        viewModelScope.launch {
+            var bindingResponse = postData<List<ColumnEntity>>(
+                "api/campus/getColumn",
+                object : TypeToken<ApiResponse<List<ColumnEntity>>>() {}.type,
+                "http://47.115.8.223:8080/", hashMap
+            )
+            bindingResponse.data?.let { updateNavigation(it) }
+            ToastUtils.showShort(bindingResponse.msg)
+        }
+    }
 
     /**
      * 更新首页左边导航栏数据
      */
-    private fun updateNavigation() {
+    private fun updateNavigation(columns:List<ColumnEntity>) {
+        getFragments()
         var hashMap = HashMap<String, Any>()
         hashMap["fragments"] = fragments
-        hashMap["tabEntity"] = getTabEntity()
+        hashMap["tabEntity"] = columns
         navigationLiveData.postValue(hashMap)
     }
 

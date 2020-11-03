@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.tvnetdisk.R
 import com.android.tvnetdisk.adapter.MainVPFragmentAdapter
 import com.android.tvnetdisk.adapter.TabBaseAdapter
+import com.android.tvnetdisk.entity.ColumnEntity
 import com.android.tvnetdisk.entity.TabEntity
 import com.android.tvnetdisk.viewmodel.MainViewModel
 import com.blankj.utilcode.util.ToastUtils
@@ -52,12 +53,17 @@ class MainActivity : TVBaseActivity() {
 
     override fun initData() {
         mainViewModel.navigationLiveData.observe(this, Observer {
-
             vpFragmentAdapter.fragments = it["fragments"] as ArrayList<Fragment>
             vpFragmentAdapter.notifyDataSetChanged()
-            ToastUtils.showShort(vpFragmentAdapter.fragments.size.toString())
 
-            tabAdapter.setDatas(it["tabEntity"] as MutableList<TabEntity>)
+            var columns=it["tabEntity"] as MutableList<ColumnEntity>
+            for (i in columns.indices){
+                if (columns[i].flag){
+                    tabLayout.selectedPosition=i
+                    break
+                }
+            }
+            tabAdapter.setDatas(columns)
         })
     }
 

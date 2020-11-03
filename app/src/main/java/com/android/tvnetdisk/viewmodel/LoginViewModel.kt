@@ -24,19 +24,20 @@ class LoginViewModel : BaseViewModel() {
     fun httpGetToken(appSecret: String) {
         //要传的参数
         var hashMap = HashMap<String, String>().apply {
-            put("appID", "wuyouapp")
-            put("appSecret", "HBu4h874C1ksAQ6s")
+//            put("appID", "wuyouapp")
+//            put("appSecret", "HBu4h874C1ksAQ6s")
+            put("appID", "admin")
+            put("appSecret", "admin123")
         }
         viewModelScope.launch {
             var tokenResponse = postData<String>(
-                "campus/getToken",
+                "api/campus/getToken",
                 object : TypeToken<ApiResponse<String>>() {}.type,
                 "http://47.115.8.223:8080/", hashMap
             )
             var token = tokenResponse.token
             if (token.isNotEmpty())
                 SPUtils.getInstance().put("token", token)
-            ToastUtils.showShort(tokenResponse.token)
             httpBinding(appSecret)
         }
     }
@@ -58,7 +59,7 @@ class LoginViewModel : BaseViewModel() {
         }
         viewModelScope.launch {
             var bindingResponse = postData<String>(
-                "campus/binding",
+                "api/campus/binding",
                 object : TypeToken<ApiResponse<String>>() {}.type,
                 "http://47.115.8.223:8080/", hashMap
             )

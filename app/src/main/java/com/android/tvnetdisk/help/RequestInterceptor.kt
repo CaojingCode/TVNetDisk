@@ -8,7 +8,9 @@ class RequestInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var build = chain.request().newBuilder()
         var request = build.build()
-        if (request.url.toString().contains("campus/binding"))
+        if (request.url.toString().contains("api/campus/binding") || request.url.toString()
+                .contains("api/campus/getColumn")
+        )
             request = request.newBuilder()
                 .header("Authorization", "Bearer ${SPUtils.getInstance().getString("token")}")
                 .build()
