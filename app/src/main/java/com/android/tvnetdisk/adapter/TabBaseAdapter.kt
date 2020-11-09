@@ -1,9 +1,11 @@
 package com.android.tvnetdisk.adapter
 
 import android.content.Context
+import android.widget.ImageView
 import com.android.tvnetdisk.R
 import com.android.tvnetdisk.entity.ColumnEntity
 import com.android.tvnetdisk.entity.TabEntity
+import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.owen.adapter.CommonRecyclerViewAdapter
@@ -22,5 +24,9 @@ class TabBaseAdapter(context: Context) : CommonRecyclerViewAdapter<ColumnEntity>
         position: Int
     ) {
         helper.holder.setText(R.id.tvTabTittle, item.columnName)
+        var imageView = helper.holder?.getView<ImageView>(R.id.ivTag)
+        if (imageView != null) {
+            Glide.with(mContext).load(item.icon).into(imageView)
+        }
     }
 }

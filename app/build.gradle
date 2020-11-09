@@ -41,6 +41,9 @@ dependencies {
 
     implementation 'com.github.CaojingCode:basevmlibray:1.0.3'
 
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+
     //TV端用到项目控件，工具类
     implementation 'com.owen:tv-recyclerview:3.0.0'
     implementation 'com.owen:tv-focusborder:2.0.0'

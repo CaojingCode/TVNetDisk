@@ -30,9 +30,9 @@ class MainViewModel : BaseViewModel() {
     }
 
 
-    private fun getFragments() {
-        for (i in tittles.indices) {
-            fragments.add(TVBaseFragment.newInstance(i))
+    private fun getFragments(columns:List<ColumnEntity>) {
+        for (i in columns.indices) {
+            fragments.add(TVBaseFragment.newInstance(columns[i].id))
         }
     }
 
@@ -68,7 +68,7 @@ class MainViewModel : BaseViewModel() {
      * 更新首页左边导航栏数据
      */
     private fun updateNavigation(columns:List<ColumnEntity>) {
-        getFragments()
+        getFragments(columns)
         var hashMap = HashMap<String, Any>()
         hashMap["fragments"] = fragments
         hashMap["tabEntity"] = columns

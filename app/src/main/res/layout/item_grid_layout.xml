@@ -6,6 +6,8 @@
     android:layout_height="120dp"
     android:clickable="true"
     android:focusable="true"
+    android:background="@drawable/selector_item_background"
+    android:padding="2dp"
     >
 
     <ImageView
@@ -21,14 +23,15 @@
 
     <TextView
         android:id="@+id/tvFileName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/qmui_s_transparent"
+        android:background="#00000000"
+        android:lines="1"
         android:gravity="center"
-        android:minWidth="100dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivFile"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="文件文件名" />
+        android:text="财务室都好似很低"
+         />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,44 +1,35 @@
 package com.android.tvnetdisk.viewmodel
 
+import androidx.lifecycle.viewModelScope
+import com.android.tvnetdisk.entity.CampusResourcesEntity
+import com.android.tvnetdisk.entity.ColumnEntity
 import com.android.tvnetdisk.entity.GridEntity
+import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.google.gson.reflect.TypeToken
 import com.jijia.kotlinlibrary.base.AppLiveData
 import com.jijia.kotlinlibrary.base.BaseViewModel
+import com.jijia.kotlinlibrary.entity.ApiResponse
+import kotlinx.coroutines.launch
 
 class TVFragmentViewModel : BaseViewModel() {
 
-    private val fileNames =
-        arrayListOf("图片1.png", "图片2.png", "视频1.mp4", "视频2.mp4", "图片3.png", "图片4.jpg")
+    var filesLiveData = AppLiveData<MutableList<CampusResourcesEntity>>()
 
-    var filesLiveData = AppLiveData<MutableList<GridEntity>>()
-
-    var gridLists: MutableList<GridEntity> = mutableListOf()
-
-    init {
-        gridLists = getGridList()
-    }
-
-    /**
-     * 获取文件数据集合
-     */
-    private fun getGridList(): MutableList<GridEntity> {
-        var gridList = mutableListOf<GridEntity>()
-        for (i in fileNames.indices) {
-            var gridEntity = GridEntity(fileNames[i], "")
-            gridList.add(gridEntity)
+    fun httpCampusResources(id:String){
+        //要传的参数
+        var hashMap = HashMap<String, String>().apply {
+            put("id", id)
+            put("appSecret", SPUtils.getInstance().getString("appKey"))
         }
-        return gridList
-    }
-
-    /**
-     * 根据导航类型，
-     */
-    fun setType(type: Int){
-        var gridList = mutableListOf<GridEntity>()
-        for (i in gridLists.indices) {
-            var gridEntity = GridEntity("课程${type+1}"+fileNames[i], "")
-            gridList.add(gridEntity)
+        viewModelScope.launch {
+            var bindingResponse = postData<MutableList<CampusResourcesEntity>>(
+                "api/campus/getCampusResources",
+                object : TypeToken<ApiResponse<MutableList<CampusResourcesEntity>>>() {}.type,
+                "http://47.115.8.223:8080/", hashMap
+            )
+            filesLiveData.postValue(bindingResponse.data)
         }
-        filesLiveData.postValue(gridList)
     }
 
     override fun getSuccessCode(): Int {

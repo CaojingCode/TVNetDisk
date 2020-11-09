@@ -11,11 +11,11 @@ class ForbidSlideViewPage(context: Context, attrs: AttributeSet) :
 
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        return true
+        return false
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        return true
+        return false
     }
 
 

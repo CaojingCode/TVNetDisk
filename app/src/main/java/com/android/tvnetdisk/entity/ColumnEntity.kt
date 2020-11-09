@@ -9,7 +9,7 @@ data class ColumnEntity(
     @SerializedName("flag")
     val flag: Boolean = false,
     @SerializedName("icon")
-    val icon: Any = Any(),
+    val icon: String = "",
     @SerializedName("id")
     val id: String = ""
 )
