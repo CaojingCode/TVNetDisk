@@ -38,6 +38,7 @@ class LoginActivity : TVBaseActivity() {
             if (it.code==200){
                 //绑定成功，进入首页
                 ActivityUtils.startActivity(MainActivity::class.java)
+                finish()
             }
         })
     }

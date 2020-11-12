@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.fragment_preview.view.*
 import kotlinx.android.synthetic.main.item_preview.view.*
 
@@ -42,7 +43,8 @@ class PreViewFragment : DialogFragment() {
 
             override fun instantiateItem(container: ViewGroup, position: Int): Any {
                 var view = LayoutInflater.from(activity).inflate(R.layout.item_preview, null)
-                Glide.with(activity!!).load(imageUrls?.get(position)).into(view.ivPreView)
+                Glide.with(activity!!).load(imageUrls?.get(position)).diskCacheStrategy(
+                    DiskCacheStrategy.DATA).into(view.ivPreView)
                 container.addView(view)
                 return view
             }
@@ -56,13 +58,7 @@ class PreViewFragment : DialogFragment() {
         if (position != null) {
             view.vpPreView.currentItem = position
         }
-//        var snapHelper = PagerSnapHelper()
-//        snapHelper.attachToRecyclerView(view.rvPreView)
-//        adapter = PreViewAdapter(activity!!)
-//        view.rvPreView.adapter = adapter
-//        if (position != null) {
-//            updateImage(position)
-//        }
+
         return view
     }
 

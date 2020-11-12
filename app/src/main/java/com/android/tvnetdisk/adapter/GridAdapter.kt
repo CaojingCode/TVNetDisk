@@ -9,6 +9,7 @@ import com.android.tvnetdisk.entity.CampusResourcesEntity
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.owen.adapter.CommonBaseAdapter
 import com.owen.adapter.CommonRecyclerViewAdapter
 import com.owen.adapter.CommonRecyclerViewHolder
@@ -31,10 +32,26 @@ class GridAdapter(context: Context) : CommonRecyclerViewAdapter<CampusResourcesE
             helper.holder?.setText(R.id.tvFileName, item?.folderName)
             imageView?.setImageResource(R.drawable.folder)
         }else{
-            helper.holder?.setText(R.id.tvFileName, item?.fileName)
-            if (imageView != null) {
-                Glide.with(mContext).load(item?.thumbnailURL).into(imageView)
+            when (item.resourcesType) {
+                1 -> {
+                    //图片
+                    helper.holder.setVisibility(R.id.ivPlayTag,View.GONE)
+                    if (imageView != null) {
+                        Glide.with(mContext).load(item.thumbnailURL).diskCacheStrategy(
+                            DiskCacheStrategy.DATA).into(imageView)
+                    }
+                }
+                2 -> {
+                    //视频
+                    helper.holder.setVisibility(R.id.ivPlayTag,View.VISIBLE)
+                    if (imageView != null) {
+                        Glide.with(mContext).load(item.fileURL).diskCacheStrategy(
+                            DiskCacheStrategy.DATA).into(imageView)
+                    }
+                }
             }
+            helper.holder?.setText(R.id.tvFileName, item?.fileName)
+
         }
     }
 
