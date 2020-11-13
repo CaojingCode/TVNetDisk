@@ -65,7 +65,12 @@ open class TVBaseFragment : BaseFragment() {
         view.rvGridView.adapter = gridAdapter
 
 
+
         view.rvGridView.setOnItemListener(object : SimpleOnItemListener() {
+            override fun onItemSelected(parent: TvRecyclerView?, itemView: View?, position: Int) {
+
+            }
+
             override fun onItemClick(parent: TvRecyclerView?, itemView: View?, position: Int) {
                 var imageUrls = getImageUrls()
                 var clickPosition = 0

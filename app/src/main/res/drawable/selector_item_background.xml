@@ -17,7 +17,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_selected="true"
-          android:drawable="@color/red"/>
+          android:drawable="@color/green"/>
     
     <item android:state_focused="true"
           android:drawable="@color/blue_2196F3"/>

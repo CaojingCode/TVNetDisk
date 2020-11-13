@@ -1,5 +1,6 @@
 package com.android.tvnetdisk.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import com.android.tvnetdisk.viewmodel.MainViewModel
 import com.owen.tvrecyclerview.widget.SimpleOnItemListener
 import com.owen.tvrecyclerview.widget.TvRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_tab_layout.view.*
 
 class MainActivity : TVBaseActivity() {
 
@@ -38,6 +40,10 @@ class MainActivity : TVBaseActivity() {
         tabLayout.setOnItemListener(object : SimpleOnItemListener() {
             override fun onItemSelected(parent: TvRecyclerView?, itemView: View, position: Int) {
 //                onMoveFocusBorder(itemView, 1.0f)
+                for (i in columns.indices) {
+                    columns[i].isSelect = position == i
+                    tabAdapter.notifyItemChanged(i)
+                }
                 vpFragment.setCurrentItem(position, false)
             }
         })
@@ -47,12 +53,14 @@ class MainActivity : TVBaseActivity() {
 
     }
 
+    var columns = mutableListOf<ColumnEntity>()
+
     override fun initData() {
         mainViewModel.navigationLiveData.observe(this, Observer {
             vpFragmentAdapter.fragments = it["fragments"] as ArrayList<Fragment>
             vpFragmentAdapter.notifyDataSetChanged()
 
-            var columns = it["tabEntity"] as MutableList<ColumnEntity>
+            columns = it["tabEntity"] as MutableList<ColumnEntity>
             for (i in columns.indices) {
                 if (columns[i].flag) {
                     tabLayout.selectedPosition = i

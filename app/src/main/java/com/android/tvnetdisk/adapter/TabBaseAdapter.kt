@@ -1,6 +1,7 @@
 package com.android.tvnetdisk.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.widget.ImageView
 import com.android.tvnetdisk.R
 import com.android.tvnetdisk.entity.ColumnEntity
@@ -24,6 +25,11 @@ class TabBaseAdapter(context: Context) : CommonRecyclerViewAdapter<ColumnEntity>
         position: Int
     ) {
         helper.holder.setText(R.id.tvTabTittle, item.columnName)
+        if (item.isSelect) {
+            helper.holder.setTextColor(R.id.tvTabTittle, Color.WHITE)
+        } else {
+            helper.holder.setTextColor(R.id.tvTabTittle, Color.BLACK)
+        }
         var imageView = helper.holder?.getView<ImageView>(R.id.ivTag)
         if (imageView != null) {
             Glide.with(mContext).load(item.icon).into(imageView)

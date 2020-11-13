@@ -30,6 +30,6 @@
         app:layout_constraintStart_toEndOf="@+id/ivTag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/White"
+        android:textColor="@color/Black"
         tools:text="测试" />
 </androidx.constraintlayout.widget.ConstraintLayout>

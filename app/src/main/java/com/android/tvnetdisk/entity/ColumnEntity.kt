@@ -11,5 +11,6 @@ data class ColumnEntity(
     @SerializedName("icon")
     val icon: String = "",
     @SerializedName("id")
-    val id: String = ""
+    val id: String = "",
+    var isSelect:Boolean=false
 )
