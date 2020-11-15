@@ -15,7 +15,6 @@
         app:tv_layoutManager="V7LinearLayoutManager"
         android:orientation="vertical"
         app:tv_isMenu="true"
-        android:background="@color/White"
         />
 
 
@@ -25,6 +24,7 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:orientation="vertical"
 
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

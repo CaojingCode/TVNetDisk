@@ -1,7 +1,9 @@
 package com.android.tvnetdisk.activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -11,7 +13,9 @@ import com.android.tvnetdisk.adapter.MainVPFragmentAdapter
 import com.android.tvnetdisk.adapter.TabBaseAdapter
 import com.android.tvnetdisk.entity.ColumnEntity
 import com.android.tvnetdisk.fragment.PreViewFragment
+import com.android.tvnetdisk.fragment.TVBaseFragment
 import com.android.tvnetdisk.viewmodel.MainViewModel
+import com.blankj.utilcode.util.FragmentUtils
 import com.owen.tvrecyclerview.widget.SimpleOnItemListener
 import com.owen.tvrecyclerview.widget.TvRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -69,6 +73,21 @@ class MainActivity : TVBaseActivity() {
             }
             tabAdapter.setDatas(columns)
         })
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode){
+            KeyEvent.KEYCODE_MENU-> {
+                //菜单键
+
+                var fragment=  vpFragmentAdapter.getItem(vpFragment.currentItem) as TVBaseFragment
+                if (event != null) {
+                    fragment.clickMenu()
+                }
+            }
+
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
 

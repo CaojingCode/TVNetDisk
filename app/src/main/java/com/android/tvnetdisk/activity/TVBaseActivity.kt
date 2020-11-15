@@ -2,6 +2,7 @@ package com.android.tvnetdisk.activity
 
 import android.R
 import android.util.TypedValue
+import android.view.KeyEvent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.jijia.kotlinlibrary.base.BaseActivity
@@ -44,5 +45,7 @@ abstract class TVBaseActivity : BaseActivity() {
     }
 
     abstract fun layoutTVResID(): Int
+
+
 
 }

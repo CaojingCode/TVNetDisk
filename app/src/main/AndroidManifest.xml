@@ -39,6 +39,10 @@
             android:name=".activity.ResourceActivity"
             android:configChanges="orientation|keyboard"
             android:screenOrientation="landscape" />
+        <activity android:name=".activity.MenuActivity"
+            android:configChanges="orientation|keyboard"
+            android:screenOrientation="landscape"
+            android:theme="@style/Transparent"/>
     </application>
 
 </manifest>

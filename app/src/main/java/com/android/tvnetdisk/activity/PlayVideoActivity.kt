@@ -1,10 +1,12 @@
 package com.android.tvnetdisk.activity
 
 import android.content.pm.ActivityInfo
+import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
 import com.android.tvnetdisk.R
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.danikula.videocache.ProxyCacheUtils
@@ -50,12 +52,13 @@ class PlayVideoActivity : BaseActivity() {
         //增加title
         playerVideo.titleTextView.visibility = View.VISIBLE
         //设置返回键
-        playerVideo.backButton.visibility = View.VISIBLE
+        playerVideo.backButton.visibility = View.GONE
         playerVideo.isNeedLockFull=false
         //设置全屏按键功能,这是使用的是选择屏幕，隐藏全屏按钮
         playerVideo.fullscreenButton.visibility=View.GONE
+
         //是否可以滑动调整
-        playerVideo.setIsTouchWiget(false)
+        playerVideo.setIsTouchWiget(true)
         //设置返回按键功能
         playerVideo.backButton.setOnClickListener(View.OnClickListener { onBackPressed() })
         playerVideo.startPlayLogic()
@@ -80,6 +83,23 @@ class PlayVideoActivity : BaseActivity() {
         super.onDestroy()
         GSYVideoManager.releaseAllVideos()
 //        orientationUtils.releaseListener()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(event?.action){
+            KeyEvent.KEYCODE_DPAD_LEFT ->{
+                ToastUtils.showShort("左键")
+//                seekTo()
+            }
+            KeyEvent.KEYCODE_DPAD_RIGHT ->{
+                ToastUtils.showShort("右键")
+//                                seekTo()
+            }
+            KeyEvent.KEYCODE_DPAD_CENTER-> {
+                ToastUtils.showShort("中间")
+            }
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onBackPressed() {
