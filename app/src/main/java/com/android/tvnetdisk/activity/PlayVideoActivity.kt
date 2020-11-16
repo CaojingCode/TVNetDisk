@@ -24,11 +24,14 @@ const val VIDEONAME="videoName"
 class PlayVideoActivity : BaseActivity() {
 
     var videoUrl: String =""
+    var videoName:String=""
 
 //    private lateinit var orientationUtils: OrientationUtils
 
     override fun initData() {
         videoUrl=intent.getStringExtra(VIDEOURL)
+        videoName=intent.getStringExtra(VIDEONAME)
+        LogUtils.d("videoUrl=$videoUrl")
         init()
     }
 
@@ -42,7 +45,7 @@ class PlayVideoActivity : BaseActivity() {
 
 
     private fun init() {
-        playerVideo.setUp(videoUrl, true, "测试视频")
+        playerVideo.setUp(videoUrl, true, videoName)
         //增加封面
         val imageView = ImageView(this)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP

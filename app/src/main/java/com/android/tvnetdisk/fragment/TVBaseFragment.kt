@@ -72,6 +72,7 @@ import kotlinx.android.synthetic.main.fragment_index.view.*
                             //视频
                             var intent = Intent(activity, PlayVideoActivity::class.java)
                             intent.putExtra(VIDEOURL, gridAdapter.getItem(position).fileURL)
+                            intent.putExtra(VIDEONAME, gridAdapter.getItem(position).fileName)
                             startActivity(intent)
                         } else {
                             //图片
@@ -181,11 +182,15 @@ import kotlinx.android.synthetic.main.fragment_index.view.*
      override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
          super.onActivityResult(requestCode, resultCode, data)
          if (requestCode==100){
-             if (resultCode== ResultCache){
-                 //下载缓存
-                 dowLoadCache()
-             }else{
-                 //刷新页面
+             when (resultCode) {
+                 ResultCache -> {
+                     //下载缓存
+                     dowLoadCache()
+                 }
+                 ResultRefresh -> {
+                     //刷新页面
+                     fragmentViewModel.httpCampusResources(id)
+                 }
              }
          }
      }

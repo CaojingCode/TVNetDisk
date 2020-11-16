@@ -24,5 +24,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="Dialog.FullScreen" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/TransColor</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 
 </resources>

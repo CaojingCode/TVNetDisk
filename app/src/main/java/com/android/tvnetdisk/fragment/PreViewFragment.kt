@@ -24,6 +24,11 @@ class PreViewFragment : DialogFragment() {
 
     lateinit var adapter: PreViewAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.Dialog_FullScreen);
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +36,7 @@ class PreViewFragment : DialogFragment() {
     ): View? {
         var view = inflater.inflate(R.layout.fragment_preview, container, false)
         var position: Int? = arguments?.getInt("position")
-        var imageUrls=arguments?.getStringArrayList("imageUrls")
+        var imageUrls = arguments?.getStringArrayList("imageUrls")
         view.vpPreView.adapter = object : PagerAdapter() {
             override fun getCount(): Int {
                 return imageUrls?.size ?: 0
@@ -44,7 +49,8 @@ class PreViewFragment : DialogFragment() {
             override fun instantiateItem(container: ViewGroup, position: Int): Any {
                 var view = LayoutInflater.from(activity).inflate(R.layout.item_preview, null)
                 Glide.with(activity!!).load(imageUrls?.get(position)).diskCacheStrategy(
-                    DiskCacheStrategy.DATA).into(view.ivPreView)
+                    DiskCacheStrategy.DATA
+                ).into(view.ivPreView)
                 container.addView(view)
                 return view
             }

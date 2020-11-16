@@ -32,7 +32,7 @@ class TabBaseAdapter(context: Context) : CommonRecyclerViewAdapter<ColumnEntity>
         }
         var imageView = helper.holder?.getView<ImageView>(R.id.ivTag)
         if (imageView != null) {
-            Glide.with(mContext).load(item.icon).into(imageView)
+            Glide.with(mContext).load(item.icon).placeholder(R.drawable.folder).into(imageView)
         }
     }
 }

@@ -63,7 +63,6 @@ class LoginViewModel : BaseViewModel() {
                 object : TypeToken<ApiResponse<String>>() {}.type,
                 "http://47.115.8.223:8080/", hashMap
             )
-            ToastUtils.showShort(bindingResponse.msg)
             bindingLiveData.postValue(bindingResponse)
         }
     }

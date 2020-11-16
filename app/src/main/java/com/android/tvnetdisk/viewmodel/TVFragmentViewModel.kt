@@ -3,10 +3,7 @@ package com.android.tvnetdisk.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.android.tvnetdisk.entity.CampusResourcesEntity
 import com.android.tvnetdisk.help.MemoryCallBack
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.blankj.utilcode.util.Utils
+import com.blankj.utilcode.util.*
 import com.danikula.videocache.HttpProxyCacheServer
 import com.google.gson.reflect.TypeToken
 import com.jijia.kotlinlibrary.base.AppLiveData
@@ -63,19 +60,19 @@ class TVFragmentViewModel : BaseViewModel() {
            requestCall?.execute(object : MemoryCallBack() {
                override fun onError(call: Call?, e: Exception?, id: Int) {
                    LogUtils.d("下载==缓存失败${e?.message}")
-//                ProxyCacheManager.instance().clearCache(Utils.getApp(),null,url)
+
                }
                override fun inProgress(progress: Float, total: Long, id: Int) {
                    LogUtils.d("下载进度===${progress}")
                }
                override fun onResponse(response: Boolean, id: Int) {
-                   LogUtils.d("下载成功")
                    stopDownload()
                    ToastUtils.showShort("下载缓存成功")
+                   //保存缓存的时间，一天后删除缓存
+                   SPUtils.getInstance().put("cacheTime",TimeUtils.getNowMills())
                }
            })
        }else{
-           LogUtils.d("缓存已经存在")
            ToastUtils.showShort("缓存已经存在")
        }
     }

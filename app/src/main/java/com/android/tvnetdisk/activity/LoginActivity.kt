@@ -15,28 +15,34 @@ class LoginActivity : TVBaseActivity() {
     }
 
 
-    private val loginViewModel: LoginViewModel by lazy {
-        ViewModelProvider(this).get(LoginViewModel::class.java)
-    }
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun initView() {
         super.initView()
         titleBarHide()
+        loginViewModel=ViewModelProvider(this).get(LoginViewModel::class.java)
         etKey.setText(SPUtils.getInstance().getString("appKey"))
+        if (SPUtils.getInstance().getBoolean("isLogin")) {
+
+            loginViewModel.httpGetToken(etKey.text.toString())
+            SPUtils.getInstance().put("appKey", etKey.text.toString())
+        }
         btnBinding.setOnClickListener {
             val textStr = etKey.text.toString()
             if (textStr.isEmpty()) {
                 ToastUtils.showShort(etKey.hint.toString())
                 return@setOnClickListener
             }
+
             //绑定
             loginViewModel.httpGetToken(textStr)
             SPUtils.getInstance().put("appKey", etKey.text.toString())
         }
 
         loginViewModel.bindingLiveData.observe(this, Observer {
-            if (it.code==200){
+            if (it.code == 200) {
                 //绑定成功，进入首页
+                SPUtils.getInstance().put("isLogin", true)
                 ActivityUtils.startActivity(MainActivity::class.java)
                 finish()
             }
